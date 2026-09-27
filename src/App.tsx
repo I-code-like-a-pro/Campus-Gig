@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 
 type View = 'landing' | 'register' | 'runner' | 'hirer';
 
@@ -329,10 +329,12 @@ function HirerPage({
   jobs,
   onBack,
   onPostJob,
+  setJobs,
 }: {
   jobs: Job[];
   onBack: () => void;
   onPostJob: (job: Omit<Job, 'id'>) => void;
+  setJobs: Dispatch<SetStateAction<Job[]>>;
 }) {
   const [section, setSection] = useState<HirerSection>('dashboard');
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
@@ -1396,7 +1398,14 @@ function App() {
   }
 
   if (view === 'hirer') {
-    return <HirerPage jobs={jobs} onBack={() => setView('register')} onPostJob={addJob} />;
+    return (
+      <HirerPage
+        jobs={jobs}
+        onBack={() => setView('register')}
+        onPostJob={addJob}
+        setJobs={setJobs}
+      />
+    );
   }
 
   return <LandingPage onRegister={() => setView('register')} />;
