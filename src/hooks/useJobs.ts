@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Job, RunnerRequirement } from '../types';
+import type { Job } from '../types';
 import { initialJobs as seededJobs } from '../data/initialJobs';
 
 export function useJobs(initial?: Job[]) {
